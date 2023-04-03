@@ -3,6 +3,7 @@ const { whiteList } = require('../config.json');
 
 module.exports = {
   data: new SlashCommandBuilder()
+    // Set the name and description of the command
     .setName('whitelist')
     .setDescription('Add new Link in the whiteList')
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
