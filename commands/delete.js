@@ -5,13 +5,13 @@ module.exports = {
   data: new SlashCommandBuilder()
     // Set the name and description of the command
     .setName('delete')
-    .setDescription('Delete all custom links in the whiteList')
+    .setDescription('Supprimer tous les liens personnalisés de la whiteList')
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
   async execute(interaction) {
     // Delete all custom links in the whiteList
-    whiteList.splice(2, whiteList.length);
+    whiteList.splice(4, whiteList.length);
 
-    await interaction.reply('Custom links deleted from the whiteList !');
+    await interaction.reply('Les liens personnalisés ont été supprimés !');
   },
 };

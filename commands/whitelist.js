@@ -5,18 +5,18 @@ module.exports = {
   data: new SlashCommandBuilder()
     // Set the name and description of the command
     .setName('whitelist')
-    .setDescription('Add new Link in the whiteList')
+    .setDescription('Ajouter un lien dans la whiteList')
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption((option) =>
       option
         .setName('link')
-        .setDescription('Link to add in the whiteList')
+        .setDescription('Le lien à ajouter dans la whiteList')
         .setRequired(true)
     ),
 
   async execute(interaction) {
     // Add new Link in the whiteList
     whiteList.push(interaction.options.getString('link'));
-    await interaction.reply('Link added to the whiteList !');
+    await interaction.reply('Le lien a été ajouté à la whiteList !');
   },
 };
