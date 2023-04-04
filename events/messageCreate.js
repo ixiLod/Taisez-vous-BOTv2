@@ -11,7 +11,7 @@ module.exports = {
       const link = message.content.match(/\b(http(s?)):\/\/\S+/gi)[0];
       // Return if message includes a whitelisted link
       if (whiteList.some((item) => link.includes(item))) return;
-      // Check if link is in collection
+      // Check if link is in collection and delete message if it is
       if (links.has(link)) {
         message.delete();
         message.channel.send(`${message.author} ce lien a déjà était posté !`);
