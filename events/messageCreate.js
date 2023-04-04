@@ -10,7 +10,7 @@ module.exports = {
       const link = message.content.match(/\b(http(s?)):\/\/\S+/gi)[0];
       // Return if message includes a whitelisted link
       if (whiteList.some((item) => link.includes(item))) return;
-      // Check if link is in Supabase table and delete message if it is
+      // Check if link is already in Supabase table
       const { data, error } = await supabase
         .from('liens')
         .select('*')
@@ -19,12 +19,13 @@ module.exports = {
         console.error(error);
         return message.reply("Une erreur s'est produite");
       }
+      // If link is already in Supabase table, delete message and send error message to channel
       if (data.length > 0) {
         const user = data[0].user;
         const date = new Date(data[0].created_at).toLocaleDateString();
         message.delete();
         message.channel.send(
-          `${message.author} Ce lien a déjà été posté par ${user} le ${date} !`
+          `${message.author} ce lien a déjà été posté par ${user} le ${date} !`
         );
       } else {
         // Insert link into Supabase table

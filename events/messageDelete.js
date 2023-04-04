@@ -14,7 +14,7 @@ module.exports = {
       const { data, error } = await supabase
         .from('liens')
         .delete()
-        .match({ url: link });
+          .match({ url: link });
       if (error) {
         console.error(error);
       } else {
