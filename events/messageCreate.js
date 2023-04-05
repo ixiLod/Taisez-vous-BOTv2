@@ -22,7 +22,11 @@ module.exports = {
       // If link is already in Supabase table, delete message and send error message to channel
       if (data.length > 0) {
         const user = data[0].user;
-        const date = new Date(data[0].created_at).toLocaleDateString();
+        const date = new Date(data[0].created_at).toLocaleDateString('fr-FR', {
+          day: 'numeric',
+          month: 'numeric',
+          year: 'numeric',
+        });
         message.delete();
         message.channel.send(
           `${message.author} ce lien a déjà été posté par ${user} le ${date} !`
