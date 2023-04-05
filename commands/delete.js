@@ -12,7 +12,8 @@ module.exports = {
     // Delete all custom links in the whiteList
     whiteList.splice(4, whiteList.length);
 
-    await interaction.reply('Les liens personnalisés ont été supprimés !', {
+    await interaction.reply({
+      content: 'Les liens personnalisés ont été supprimés !',
       ephemeral: true,
     });
   },
