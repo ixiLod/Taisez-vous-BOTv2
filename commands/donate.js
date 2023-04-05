@@ -11,7 +11,7 @@ module.exports = {
     // Replu the link to the buy me a coffee page
     await interaction.reply({
       content:
-        'Pour faire un don, ça se passe ici : https://www.buymeacoffee.com/vrh9ft859hx Merci Beaucoup !',
+        'Pour soutenir, ça se passe ici : https://www.buymeacoffee.com/vrh9ft859hx Merci Beaucoup !',
       ephemeral: true,
     });
   },
