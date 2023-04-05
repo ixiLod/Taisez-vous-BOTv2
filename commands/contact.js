@@ -8,7 +8,8 @@ module.exports = {
   async execute(interaction) {
     await interaction.reply(
       // Reply the name of the author of the bot
-      "Vous pouvez contacter l'auteur du bot sur ce compte discord : ixiLod#7879"
+      "Vous pouvez contacter l'auteur du bot sur ce compte discord : ixiLod#7879",
+      { ephemeral: true }
     );
   },
 };

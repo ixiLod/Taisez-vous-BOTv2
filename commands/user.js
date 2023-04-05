@@ -8,7 +8,8 @@ module.exports = {
   async execute(interaction) {
     // Reply the name of the user who run the command and the date of his join
     await interaction.reply(
-      `Cette commande est exécutée par ${interaction.user.username}, qui a rejoint le serveur le ${interaction.member.joinedAt}.`
+      `Cette commande est exécutée par ${interaction.user.username}, qui a rejoint le serveur le ${interaction.member.joinedAt}.`,
+      { ephemeral: true }
     );
   },
 };
