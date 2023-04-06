@@ -8,10 +8,10 @@ module.exports = {
       'Vous pouvez soutenir le créateur du bot en lui payant un café !'
     ),
   async execute(interaction) {
-    // Replu the link to the buy me a coffee page
+    // Reply the link to the buyMeACoffee page
     await interaction.reply({
       content:
-        'Pour soutenir, ça se passe ici : https://www.buymeacoffee.com/vrh9ft859hx Merci Beaucoup !',
+        'Pour soutenir le créateur, ça se passe ici : https://www.buymeacoffee.com/vrh9ft859hx Merci Beaucoup !',
       ephemeral: true,
     });
   },
