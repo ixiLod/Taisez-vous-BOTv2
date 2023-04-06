@@ -29,11 +29,13 @@ module.exports = {
           hour: 'numeric',
           minute: 'numeric',
         });
-        // Send hour and minute only
+        // Send date and hour separately
+        const dateGlobal = date.split(' ')[0];
         const dateHour = date.split(' ')[1];
+
         message.delete();
         message.channel.send(
-          `${message.author} ce lien a déjà été posté par ${user} le ${date} à ${dateHour} !`
+          `${message.author} ce lien a déjà été posté par ${user} le ${dateGlobal} à ${dateHour} !`
         );
       } else {
         // Insert link into Supabase table
