@@ -11,12 +11,12 @@ module.exports = {
     if (message.author) {
       // Check if message is a link and store it in a variable
       if (message.content.match(/\b(http(s?)):\/\/\S+/gi)) {
-        const link = message.content.match(/\b(http(s?)):\/\/\S+/gi)[0];
+        const linkDeleted = message.content.match(/\b(http(s?)):\/\/\S+/gi)[0];
         // Check if link is in Supabase table
         const { data, error } = await supabase
           .from('links')
           .select()
-          .eq('url', link);
+          .eq('url', linkDeleted);
 
         if (error) {
           console.error(error);
@@ -27,12 +27,14 @@ module.exports = {
           const { error } = await supabase
             .from('links')
             .delete()
-            .eq('url', link);
+            .eq('url', linkDeleted);
           if (error) {
             console.error(error);
             return;
           }
-          console.log(`Link ${link} has been deleted from the Supabase table.`);
+          console.log(
+            `Link ${linkDeleted} has been deleted from the Supabase table.`
+          );
         }
       }
     }

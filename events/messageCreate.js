@@ -18,8 +18,9 @@ module.exports = {
         .eq('url', link);
       if (error) {
         console.error(error);
+        return;
       }
-      // If link is already in Supabase table, delete message and send error message to channel
+      // Check If link is already in Supabase table
       if (data.length > 0) {
         const user = data[0].user;
 
@@ -36,10 +37,15 @@ module.exports = {
 
         const positionLink = data[0].link_position;
 
+        // Delete message and send error message to channel
         message.delete();
-        message.channel.send(
+        const sentMessage = await message.channel.send(
           `${message.author} ce lien a déjà été posté par ${user} le ${dateGlobal} à ${dateHour} ! \nTu peux retrouver le lien original ici => ${positionLink}`
         );
+        // Delete sent message after 3 minutes
+        setTimeout(() => {
+          sentMessage.delete();
+        }, 180000);
       } else {
         // Insert link into Supabase table
         const { data, error } = await supabase.from('liens').insert([
