@@ -6,7 +6,7 @@ module.exports = {
     // Set the name and description of the command
     .setName('whitelist')
     .setDescription('Ajouter un lien dans la whiteList')
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
+    // .setDefaultMemberPermissions(PermissionFlagsBits.Administrator)
     .addStringOption((option) =>
       option
         .setName('link')
@@ -19,7 +19,7 @@ module.exports = {
     whiteList.push(interaction.options.getString('link'));
     await interaction.reply({
       content: 'Le lien a été ajouté à la whiteList !',
-      ephemeral: true,
+      // ephemeral: true,
     });
   },
 };

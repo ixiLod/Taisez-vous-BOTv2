@@ -5,9 +5,10 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 module.exports = {
   name: 'messageCreate',
   async execute(message) {
-    // Check if message is a link
-    if (message.content.match(/\b(http(s?)):\/\/\S+/gi)) {
-      const link = message.content.match(/\b(http(s?)):\/\/\S+/gi)[0];
+    // Check if message is a link ans store it in a variable
+    const linkMatch = message.content.match(/\b(http(s?)):\/\/\S+/gi);
+    if (linkMatch) {
+      const link = linkMatch[0];
       // Return if message includes a whitelisted link
       if (whiteList.some((item) => link.includes(item))) return;
       // Check if link is already in Supabase table
@@ -17,40 +18,40 @@ module.exports = {
         .eq('url', link);
       if (error) {
         console.error(error);
-        return message.reply("Une erreur s'est produite");
       }
       // If link is already in Supabase table, delete message and send error message to channel
       if (data.length > 0) {
         const user = data[0].user;
-        const date = new Date(data[0].created_at).toLocaleDateString('fr-FR', {
+
+        const date = new Date(data[0].created_at);
+        const dateGlobal = date.toLocaleDateString('fr-FR', {
           day: 'numeric',
           month: 'numeric',
           year: 'numeric',
+        });
+        const dateHour = date.toLocaleTimeString('fr-FR', {
           hour: 'numeric',
           minute: 'numeric',
         });
-        // Send date and hour separately
-        const dateGlobal = date.split(' ')[0];
-        const dateHour = date.split(' ')[1];
+
+        const positionLink = data[0].link_position;
 
         message.delete();
         message.channel.send(
-          `${message.author} ce lien a déjà été posté par ${user} le ${dateGlobal} à ${dateHour} !`
+          `${message.author} ce lien a déjà été posté par ${user} le ${dateGlobal} à ${dateHour} ! \nTu peux retrouver le lien original ici => ${positionLink}`
         );
       } else {
         // Insert link into Supabase table
-        const { data: insertedData, insertError } = await supabase
-          .from('liens')
-          .insert([
-            {
-              url: link,
-              user: message.author.username,
-              created_at: new Date(),
-            },
-          ]);
-        if (insertError) {
-          console.error(insertError);
-          return message.reply("Une erreur s'est produite");
+        const { data, error } = await supabase.from('liens').insert([
+          {
+            url: link,
+            user: message.author.username,
+            created_at: message.createdAt,
+            link_position: message.url,
+          },
+        ]);
+        if (error) {
+          console.error(error);
         }
       }
     }
