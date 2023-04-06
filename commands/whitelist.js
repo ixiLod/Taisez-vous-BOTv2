@@ -17,9 +17,9 @@ module.exports = {
   async execute(interaction) {
     // Add new Link in the whiteList
     whiteList.push(interaction.options.getString('link'));
-    await interaction.reply({
-      content: 'Le lien a été ajouté à la whiteList !',
+    await interaction.reply(
+      `${interaction.user}, le lien a été ajouté à la whiteList !`
       // ephemeral: true,
-    });
+    );
   },
 };

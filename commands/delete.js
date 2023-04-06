@@ -13,7 +13,7 @@ module.exports = {
     whiteList.splice(5, whiteList.length);
     // Reply that the custom links have been deleted
     await interaction.reply(
-      'Les liens personnalisés ont été supprimés de la whiteList !'
+      `${interaction.user}, les liens personnalisés ont été supprimés de la whiteList !`
       // ephemeral: true,
     );
   },
