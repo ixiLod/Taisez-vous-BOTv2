@@ -1,6 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
 const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
-
+// NEED TO FIX LATER
 module.exports = {
   name: 'messageDelete',
   async execute(message) {

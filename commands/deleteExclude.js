@@ -10,7 +10,7 @@ module.exports = {
 
   async execute(interaction) {
     // Delete all ID in the excludedChannels
-    excludedChannels.splice(1, excludedChannels.length);
+    excludedChannels.splice(0, excludedChannels.length);
     // Reply that the ID have been deleted
     await interaction.reply({
       content: `Les salons ne sont plus exclus du bot !`,
