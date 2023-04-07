@@ -1,0 +1,17 @@
+{
+  "token": "****",
+  "clientId": "****",
+  "guildId": "****",
+
+  "whiteList": [
+    "https://discord.com/",
+    "https://google.com/",
+    "https://tenor.com/",
+    "https://www.youtube.com/watch?v=Jb392j1BL3U",
+    "https://www.buymeacoffee.com/vrh9ft859hx"
+  ],
+  "excludedChannels": [],
+
+  "supabaseUrl": "****",
+  "supabaseKey": "****"
+}
