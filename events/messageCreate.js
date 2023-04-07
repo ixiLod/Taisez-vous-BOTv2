@@ -1,10 +1,12 @@
 const { createClient } = require('@supabase/supabase-js');
-const { whiteList, supabaseKey, supabaseUrl } = require('../config.json');
+const { whiteList, excludedChannels, supabaseKey, supabaseUrl } = require('../config.json');
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 module.exports = {
   name: 'messageCreate',
   async execute(message) {
+    // Return if message channel is excluded
+    if (excludedChannels.includes(message.channel.id)) return;
     // Check if message is a link ans store it in a variable
     const linkMatch = message.content.match(/\b(http(s?)):\/\/\S+/gi);
     if (linkMatch) {

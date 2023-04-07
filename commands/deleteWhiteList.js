@@ -4,7 +4,7 @@ const { whiteList } = require('../config.json');
 module.exports = {
   data: new SlashCommandBuilder()
     // Set the name and description of the command
-    .setName('delete')
+    .setName('deletewhitelist')
     .setDescription('Supprimer tous les liens personnalisés de la whiteList'),
   // .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
 
