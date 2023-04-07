@@ -9,6 +9,9 @@ const {
   Partials,
 } = require('discord.js');
 
+// Import config
+const { token } = require('./config.json');
+
 // Create a new client instance
 const client = new Client({
   intents: [
@@ -62,4 +65,4 @@ for (const file of commandFiles) {
 }
 
 // Log in to Discord with your client's token
-client.login(process.env.TOKEN);
+client.login(token);

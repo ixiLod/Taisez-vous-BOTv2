@@ -1,5 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
-const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
+const { supabaseKey, supabaseUrl } = require('../config.json');
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 module.exports = {
   name: 'messageDelete',

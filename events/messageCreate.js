@@ -1,6 +1,11 @@
 const { createClient } = require('@supabase/supabase-js');
-const { whiteList, excludedChannels } = require('../config.json');
-const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
+const {
+  whiteList,
+  excludedChannels,
+  supabaseKey,
+  supabaseUrl,
+} = require('../config.json');
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 module.exports = {
   name: 'messageCreate',
