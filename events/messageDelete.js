@@ -1,6 +1,5 @@
 const { createClient } = require('@supabase/supabase-js');
-const { supabaseKey, supabaseUrl } = require('../config.json');
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
 module.exports = {
   name: 'messageDelete',
@@ -17,7 +16,6 @@ module.exports = {
           .from('links')
           .select()
           .eq('url', linkDeleted);
-
         if (error) {
           console.error(error);
           return;

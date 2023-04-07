@@ -1,11 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
-const {
-  whiteList,
-  excludedChannels,
-  supabaseKey,
-  supabaseUrl,
-} = require('../config.json');
-const supabase = createClient(supabaseUrl, supabaseKey);
+const { whiteList, excludedChannels } = require('../config.json');
+const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 
 module.exports = {
   name: 'messageCreate',
@@ -30,7 +25,6 @@ module.exports = {
       // Check If link is already in Supabase table
       if (data.length > 0) {
         const user = data[0].user;
-
         const date = new Date(data[0].created_at);
         const dateGlobal = date.toLocaleDateString('fr-FR', {
           day: 'numeric',
@@ -41,7 +35,6 @@ module.exports = {
           hour: 'numeric',
           minute: 'numeric',
         });
-
         const positionLink = data[0].link_position;
 
         // Delete message and send error message to channel
