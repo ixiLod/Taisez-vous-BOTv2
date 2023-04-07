@@ -1,7 +1,15 @@
 {
+  "name": "taisez-vous_bot",
+  "version": "2.0.0",
+  "description": "Bot discord anti duplicate link",
+  "main": "index.js",
+  "author": "ixiLod",
+  "license": "ISC",
   "dependencies": {
     "@supabase/supabase-js": "^2.13.1",
     "discord.js": "^14.8.0"
   },
-  "main": "index.js"
+  "scripts": {
+    "start": " node index.js"
+  }
 }
