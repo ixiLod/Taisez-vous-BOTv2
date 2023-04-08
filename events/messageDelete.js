@@ -11,9 +11,12 @@ module.exports = {
       // Check if message is a link and store it in a variable
       if (message.content.match(/\b(http(s?)):\/\/\S+/gi)) {
         const linkDeleted = message.content.match(/\b(http(s?)):\/\/\S+/gi)[0];
+        // Return if server ID was not found
+        if (message.guild.id !== process.env.SERVER1) return;
         // Check if link is in Supabase table
+
         const { data, error } = await supabase
-          .from('links')
+          .from('liens')
           .select()
           .eq('url', linkDeleted);
         if (error) {
@@ -23,7 +26,7 @@ module.exports = {
         // Delete equivalent link in Supabase table
         if (data.length > 0) {
           const { error } = await supabase
-            .from('links')
+            .from('liens')
             .delete()
             .eq('url', linkDeleted);
           if (error) {

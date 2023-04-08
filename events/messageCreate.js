@@ -11,6 +11,13 @@ module.exports = {
     const linkMatch = message.content.match(/\b(http(s?)):\/\/\S+/gi);
     if (linkMatch) {
       const link = linkMatch[0];
+      // Return if server ID was not found
+      if (message.guild.id !== process.env.SERVER1) {
+        message.channel.send(
+          "Le bot n'est pas censé fonctionner sur ce serveur ! Si vous voulez débloquer toutes les fonctionnalités du bot, contactez ixiLod#7879"
+        );
+        return;
+      }
       // Return if message includes a whitelisted link
       if (whiteList.some((item) => link.includes(item))) return;
       // Check if link is already in Supabase table
