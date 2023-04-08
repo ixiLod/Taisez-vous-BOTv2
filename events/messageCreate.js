@@ -42,10 +42,6 @@ module.exports = {
         const sentMessage = await message.channel.send(
           `${message.author} ce lien a déjà été posté par ${user} le ${dateGlobal} à ${dateHour} ! \nTu peux retrouver le lien original ici => ${positionLink}`
         );
-        // Delete sent message after 3 minutes
-        setTimeout(() => {
-          sentMessage.delete();
-        }, 180000);
       } else {
         // Insert link into Supabase table
         const { data, error } = await supabase.from('liens').insert([

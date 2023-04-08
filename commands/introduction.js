@@ -10,7 +10,7 @@ module.exports = {
       // Reply the name of the author of the bot
       {
         content:
-          'Voici la vidéo de présentation : https://www.youtube.com/watch?v=Jb392j1BL3U',
+          'Voici la vidéo de présentation : https://odysee.com/@taisezvous:6/taisezvousbot:4',
         ephemeral: true,
       }
     );
