@@ -5,8 +5,6 @@ const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 module.exports = {
   name: 'messageCreate',
   async execute(message) {
-    // Return if message channel is excluded
-    if (excludedChannels.includes(message.channel.id)) return;
     // Check if message is a link ans store it in a variable
     const linkMatch = message.content.match(/\b(http(s?)):\/\/\S+/gi);
     if (linkMatch) {
@@ -18,6 +16,8 @@ module.exports = {
         );
         return;
       }
+      // Return if message channel is excluded
+      if (excludedChannels.includes(message.channel.id)) return;
       // Return if message includes a whitelisted link
       if (whiteList.some((item) => link.includes(item))) return;
       // Check if link is already in Supabase table

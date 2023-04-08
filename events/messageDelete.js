@@ -13,16 +13,6 @@ module.exports = {
         const linkDeleted = message.content.match(/\b(http(s?)):\/\/\S+/gi)[0];
         // Return if server ID was not found
         if (message.guild.id !== process.env.SERVER1) return;
-        // Check if link is in Supabase table
-
-        const { data, error } = await supabase
-          .from('liens')
-          .select()
-          .eq('url', linkDeleted);
-        if (error) {
-          console.error(error);
-          return;
-        }
         // Delete equivalent link in Supabase table
         if (data.length > 0) {
           const { error } = await supabase
