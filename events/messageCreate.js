@@ -5,16 +5,27 @@ const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
 module.exports = {
   name: 'messageCreate',
   async execute(message) {
-    // Check if message is a link ans store it in a variable
+    // Check if message is a link and store it in a variable
     const linkMatch = message.content.match(/\b(http(s?)):\/\/\S+/gi);
     if (linkMatch) {
       const link = linkMatch[0];
-      // Return if server ID was not found
-      if (message.guild.id !== process.env.SERVER1) {
-        message.channel.send(
-          "Le bot n'est pas censé fonctionner sur ce serveur ! Si vous voulez débloquer toutes les fonctionnalités du bot, contactez ixiLod#7879"
-        );
-        return;
+      // Switch serverName and tableName depending on server
+      let serverName;
+      let tableName;
+      switch (message.guild.id) {
+        case process.env.SERVER1:
+          serverName = 'Server 1';
+          tableName = 'liens';
+          break;
+        case process.env.SERVER2:
+          serverName = 'Server 2';
+          tableName = 'liens2';
+          break;
+        default:
+          message.channel.send(
+            "Le bot n'est pas censé fonctionner sur ce serveur ! Si vous voulez débloquer toutes les fonctionnalités du bot, contactez ixiLod#7879"
+          );
+          return;
       }
       // Return if message channel is excluded
       if (excludedChannels.includes(message.channel.id)) return;
@@ -22,7 +33,7 @@ module.exports = {
       if (whiteList.some((item) => link.includes(item))) return;
       // Check if link is already in Supabase table
       const { data, error } = await supabase
-        .from('liens')
+        .from(tableName)
         .select('*')
         .eq('url', link);
       if (error) {
@@ -51,7 +62,7 @@ module.exports = {
         );
       } else {
         // Insert link into Supabase table
-        const { data, error } = await supabase.from('liens').insert([
+        const { data, error } = await supabase.from(tableName).insert([
           {
             url: link,
             user: message.author.username,
