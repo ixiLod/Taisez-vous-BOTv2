@@ -1,31 +1,54 @@
 const { createClient } = require('@supabase/supabase-js');
+const { whiteList, excludedChannels } = require('../config.json');
 const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
-// NEED TO FIX LATER
+
 module.exports = {
   name: 'messageDelete',
   async execute(message) {
-    // Check if message was deleted by a bot
-    if (message.author.client) return;
-    // Check if message was deleted by a user
-    if (message.author) {
-      // Check if message is a link and store it in a variable
-      if (message.content.match(/\b(http(s?)):\/\/\S+/gi)) {
-        const linkDeleted = message.content.match(/\b(http(s?)):\/\/\S+/gi)[0];
-        // Return if server ID was not found
-        if (message.guild.id !== process.env.SERVER1) return;
-        // Delete equivalent link in Supabase table
-        if (data.length > 0) {
-          const { error } = await supabase
-            .from('liens')
-            .delete()
-            .eq('url', linkDeleted);
-          if (error) {
-            console.error(error);
-            return;
-          }
-          console.log(
-            `Link ${linkDeleted} has been deleted from the Supabase table.`
+    //  ADD MULTISERVER SUPPORT, BUT NOT FONCTIONNAL FOR NOW
+
+    // Ignore delete from bots
+    if (message.author.client) return; // FONCTIONNAL WITH (message.author.bot) FOR USER DELETE, BUT BOT STILL DELETE DATABASE LINKS
+
+    // Check if message is a link and store it in a variable
+    const linkMatch = message.content.match(/\b(http(s?)):\/\/\S+/gi);
+    if (linkMatch) {
+      const link = linkMatch[0];
+      // Switch serverName and tableName depending on server
+      let serverName;
+      let tableName;
+      switch (message.guild.id) {
+        case process.env.SERVER1:
+          serverName = 'Server 1';
+          tableName = 'liens';
+          break;
+        case process.env.SERVER2:
+          serverName = 'Server 2';
+          tableName = 'liens2';
+          break;
+        default:
+          message.channel.send(
+            "Le bot n'est pas censé fonctionner sur ce serveur ! Si vous voulez débloquer toutes les fonctionnalités du bot, contactez ixiLod#7879"
           );
+          return;
+      }
+      // Select from database
+      const { data, error } = await supabase
+        .from(tableName)
+        .select('*')
+        .eq('url', link);
+      if (error) {
+        console.error(error);
+        return;
+      }
+      // Check if link is in Supabase table and delete it
+      if (data.length > 0) {
+        const { error } = await supabase
+          .from(tableName)
+          .delete()
+          .eq('url', link);
+        if (error) {
+          console.error(error);
         }
       }
     }
