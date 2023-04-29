@@ -49,7 +49,6 @@ this bot uses slash commands here are the commands currently available :
 Taisez-vous uses the following dependencies :  
 
 [discord.js](https://discord.js.org/#/) : A library for interacting with the Discord API<br> 
-
 [supabase.js](https://supabase.com/) : A library for interacting with the Supabase API<br> 
 
 Be sure to install these dependencies before using the bot.
