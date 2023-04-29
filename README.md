@@ -25,9 +25,7 @@ or you can use `config.json` if you want<br>
 To start the bot, run the command `npm start index.js` <br> 
 To deploy the slash commands, use the command `node deploy-commands.js`  
 
-Also supports docker, you need to run this command and replace all tokens and IDs with your own :  
-
-`docker run -e TOKEN=<DISCORD_TOKEN> -e SUPABASEURL=<SUPABASE_URL> -e SUPABASEKEY=<SUPABASE_TOKEN> -e SERVER1=<YOUR_SERVER1_ID>  -e SERVER2=<YOUR_SERVER2_ID> <YOUR_DOCKER_IMAGE>` 
+Also supports docker, you can build the image with this command => `docker build -t taisez-vous .`  
 
 
 <h2>Slash Commands</h2>
