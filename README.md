@@ -4,6 +4,8 @@
 
 
 Taisez-vous is a Discord bot that removes duplicate links on a server. When a user posts a new link, the bot checks if the link has already been posted, and if so, it is removed.
+<br><br>
+
 
 <h2>How to Use</h2>
 
@@ -26,6 +28,7 @@ To start the bot, run the command `npm start index.js` <br>
 To deploy the slash commands, use the command `node deploy-commands.js`  
 
 Also supports docker, you can build the image with this command => `docker build -t taisez-vous .`  
+<br><br>
 
 
 <h2>Slash Commands</h2>
@@ -42,6 +45,8 @@ this bot uses slash commands here are the commands currently available :
 <li><b>/donate</b> => <i>for support the bot author</i></li>
 <li><b>/contact</b> => <i>for contact the bot author</i></li>
 </ul>
+<br>
+
 <h2>Dependencies</h2>
 
 Taisez-vous uses the following dependencies :  
