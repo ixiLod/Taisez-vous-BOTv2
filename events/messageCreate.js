@@ -1,7 +1,6 @@
 const { createClient } = require('@supabase/supabase-js');
 const { whiteList, excludedChannels } = require('../config.json');
 const supabase = createClient(process.env.SUPABASEURL, process.env.SUPABASEKEY);
-
 module.exports = {
   name: 'messageCreate',
   async execute(message) {
@@ -27,15 +26,14 @@ module.exports = {
           );
           return;
       }
+      // Return if message author is a bot
+      if (message.author.bot) return;
       // Return if message channel is excluded
       if (excludedChannels.includes(message.channel.id)) return;
       // Return if message includes a whitelisted link
       if (whiteList.some((item) => link.includes(item))) return;
       // Check if link is already in Supabase table
-      const { data, error } = await supabase
-        .from(tableName)
-        .select('*')
-        .eq('url', link);
+      const { data, error } = await supabase.from(tableName).select('*').eq('url', link);
       if (error) {
         console.error(error);
         return;
@@ -54,7 +52,6 @@ module.exports = {
           minute: 'numeric',
         });
         const positionLink = data[0].link_position;
-
         // Delete message and send error message to channel
         message.delete();
         const sentMessage = await message.channel.send(

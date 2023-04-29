@@ -1,14 +1,7 @@
 // Require the necessary discord.js classes
 const fs = require('node:fs');
 const path = require('node:path');
-const {
-  Client,
-  Collection,
-  Events,
-  GatewayIntentBits,
-  Partials,
-} = require('discord.js');
-
+const { Client, Collection, Events, GatewayIntentBits, Partials } = require('discord.js');
 // Create a new client instance
 const client = new Client({
   intents: [
@@ -19,18 +12,18 @@ const client = new Client({
   ],
   partials: [Partials.Channel],
 });
-
 // Signal when the client is ready
 client.once(Events.ClientReady, (c) => {
   console.log(`Ready! Logged in as ${c.user.tag}`);
+  // Checks server name who add the bot
+  client.guilds.cache.forEach((guild) => {
+    console.log(guild.name, guild.id);
+  });
 });
 
 // Reading events files
 const eventsPath = path.join(__dirname, 'events');
-const eventFiles = fs
-  .readdirSync(eventsPath)
-  .filter((file) => file.endsWith('.js'));
-
+const eventFiles = fs.readdirSync(eventsPath).filter((file) => file.endsWith('.js'));
 for (const file of eventFiles) {
   const filePath = path.join(eventsPath, file);
   const event = require(filePath);
@@ -40,14 +33,10 @@ for (const file of eventFiles) {
     client.on(event.name, (...args) => event.execute(...args));
   }
 }
-
 // Reading commands files
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
-const commandFiles = fs
-  .readdirSync(commandsPath)
-  .filter((file) => file.endsWith('.js'));
-
+const commandFiles = fs.readdirSync(commandsPath).filter((file) => file.endsWith('.js'));
 for (const file of commandFiles) {
   const filePath = path.join(commandsPath, file);
   const command = require(filePath);
@@ -60,6 +49,5 @@ for (const file of commandFiles) {
     );
   }
 }
-
 // Log in to Discord with your client's token
 client.login(process.env.TOKEN);
