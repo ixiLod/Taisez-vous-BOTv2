@@ -23,7 +23,7 @@ To use Taisez-vous, add the following environment variables to your `.env` file 
 
 or you can use `config.json` if you want<br>
 <br>
-
+Install packages with `npm install` <br> 
 To start the bot, run the command `npm start index.js` <br> 
 To deploy the slash commands, use the command `node deploy-commands.js`  
 
