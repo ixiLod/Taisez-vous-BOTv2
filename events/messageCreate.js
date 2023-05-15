@@ -46,10 +46,12 @@ module.exports = {
           day: 'numeric',
           month: 'numeric',
           year: 'numeric',
+          timeZone: 'Europe/Paris',
         });
         const dateHour = date.toLocaleTimeString('fr-FR', {
           hour: 'numeric',
           minute: 'numeric',
+          timeZone: 'Europe/Paris',
         });
         const positionLink = data[0].link_position;
         // Delete message and send error message to channel
